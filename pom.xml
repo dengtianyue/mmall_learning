@@ -249,6 +249,7 @@
 
   <build>
     <finalName>mmall</finalName>
+    <defaultGoal>compile</defaultGoal>
     <plugins>
       <plugin>
         <groupId>org.mybatis.generator</groupId>
@@ -257,6 +258,8 @@
         <configuration>
           <verbose>true</verbose>
           <overwrite>true</overwrite>
+          <verbose>false</verbose>
+          <overwrite>false</overwrite>
         </configuration>
       </plugin>
 
