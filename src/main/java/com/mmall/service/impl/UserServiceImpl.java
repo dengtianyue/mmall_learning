@@ -152,7 +152,6 @@ class UserServiceImpl implements IUserService {
     }
 
     public ServerResponse<User> updateInformation(User user){
-        //username不能被更新wulala
         //email也要进行校验是否存在,存在的email是相同的话,不能是当前用户的
         int resultCount = userMapper.checkEmailByUserId(user.getEmail(),user.getId());
         if(resultCount>0){
