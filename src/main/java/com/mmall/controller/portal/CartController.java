@@ -38,7 +38,7 @@ public class CartController {
     @ResponseBody
     public ServerResponse<CartVo> add(HttpSession session, Integer count, Integer productId){
         User user = (User)session.getAttribute(Const.CURRENT_USER);
-        if(user == null){
+        if(user ==null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
         return iCartService.add(user.getId(),productId,count);
@@ -72,7 +72,7 @@ public class CartController {
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.selectOrUnselect(user.getId(),null,Const.Cart.CHECKED);
+        return iCartService.selectOrUnSelect(user.getId(),null,Const.Cart.CHECKED);
     }
 
     @RequestMapping("un_select_all.do")
@@ -82,7 +82,7 @@ public class CartController {
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.selectOrUnselect(user.getId(),null,Const.Cart.UNCHECKED);
+        return iCartService.selectOrUnSelect(user.getId(),null,Const.Cart.UNCHECKED);
     }
 
     @RequestMapping("select.do")
@@ -92,7 +92,7 @@ public class CartController {
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.selectOrUnselect(user.getId(),productId,Const.Cart.CHECKED);
+        return iCartService.selectOrUnSelect(user.getId(),productId,Const.Cart.CHECKED);
     }
 
     @RequestMapping("un_select.do")
@@ -102,7 +102,7 @@ public class CartController {
         if(user == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),ResponseCode.NEED_LOGIN.getDesc());
         }
-        return iCartService.selectOrUnselect(user.getId(),productId,Const.Cart.UNCHECKED);
+        return iCartService.selectOrUnSelect(user.getId(),productId,Const.Cart.UNCHECKED);
     }
 
 

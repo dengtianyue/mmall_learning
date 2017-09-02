@@ -16,7 +16,7 @@
     id, user_id, product_id, quantity, checked, create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from mmall_cart
     where id = #{id,jdbcType=INTEGER}
@@ -52,10 +52,10 @@
         checked,
       </if>
       <if test="createTime != null" >
-        createTime,
+        create_time,
       </if>
       <if test="updateTime != null" >
-        updateTime,
+        update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -109,13 +109,14 @@
   <update id="updateByPrimaryKey" parameterType="com.mmall.pojo.Cart" >
     update mmall_cart
     set user_id = #{userId,jdbcType=INTEGER},
-      product_id = #{productId,jdbcType=INTEGER},
-      quantity = #{quantity,jdbcType=INTEGER},
-      checked = #{checked,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = now()
+    product_id = #{productId,jdbcType=INTEGER},
+    quantity = #{quantity,jdbcType=INTEGER},
+    checked = #{checked,jdbcType=INTEGER},
+    create_time = #{createTime,jdbcType=TIMESTAMP},
+    update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
+
 
   <select id="selectCartByUserIdProductId" resultMap="BaseResultMap" parameterType="map">
     SELECT
@@ -125,6 +126,8 @@
     and product_id = #{productId}
   </select>
 
+
+
   <select id="selectCartByUserId" resultMap="BaseResultMap" parameterType="int">
     SELECT
     <include refid="Base_Column_List"/>
@@ -133,31 +136,61 @@
   </select>
 
   <select id="selectCartProductCheckedStatusByUserId" resultType="int" parameterType="int">
-    SELECT count(1) from mmall_cart where checked = 0 and user_id = #{userId}
+    SELECT  count(1) from mmall_cart where checked = 0 and user_id = #{userId}
   </select>
+
 
   <delete id="deleteByUserIdProductIds" parameterType="map">
     delete from mmall_cart
-    WHERE user_id = #{userId}
+    where user_id = #{userId}
     <if test="productIdList != null">
-      <foreach collection="productIdList" item="item" open="(" close=")" separator=",">
+      and product_id in
+      <foreach collection="productIdList" item="item" index="index" open="(" separator="," close=")">
         #{item}
       </foreach>
-
     </if>
   </delete>
 
+
+
   <update id="checkedOrUncheckedProduct" parameterType="map">
-    UPDATE mmall_cart
-    SET checked = #{checked},
+    UPDATE  mmall_cart
+    set checked = #{checked},
     update_time = now()
-    where userid = #{userId}
+    where user_id = #{userId}
     <if test="productId != null">
-        and product_id = #{productId}
+      and product_id = #{productId}
     </if>
   </update>
 
+
   <select id="selectCartProductCount" parameterType="int" resultType="int">
-    SELECT IFNULL(sum(quantity),0) as count from mmall_cart where user_id = #{userId}
+    select IFNULL(sum(quantity),0) as count from mmall_cart where user_id = #{userId}
   </select>
+
+
+
+  <select id="selectCheckedCartByUserId" parameterType="int" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from mmall_cart
+    where user_id = #{userId}
+    and checked = 1
+  </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>
