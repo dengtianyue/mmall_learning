@@ -24,6 +24,7 @@
     </filter-mapping>
 
     <!--解决跨域访问-->
+    <!--
     <filter>
         <filter-name>crossorigin</filter-name>
         <filter-class>com.mmall.common.CORSFilter</filter-class>
@@ -32,6 +33,7 @@
         <filter-name>crossorigin</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    -->
 
 
     <listener>
