@@ -140,6 +140,7 @@ public class ProductServiceImpl implements IProductService {
 
 
 
+    //
     private ProductListVo assembleProductListVo(Product product){
         ProductListVo productListVo = new ProductListVo();
         productListVo.setId(product.getId());
